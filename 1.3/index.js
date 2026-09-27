@@ -1,12 +1,10 @@
-const http = require('http');
+const crypto = require('crypto');
 
-const PORT = process.env.PORT || 3000;
+const randomString = crypto.randomUUID();
 
-const server = http.createServer((req, res) => {
-  res.writeHead(200, { 'Content-Type': 'text/plain' });
-  res.end('1.2 app is running');
-});
+function logRandomString() {
+  const timestamp = new Date().toISOString();
+  console.log(`[${timestamp}]: ${randomString}`);
+}
 
-server.listen(PORT, () => {
-  console.log(`Server started in port ${PORT}`);
-});
+setInterval(logRandomString, 5000);
