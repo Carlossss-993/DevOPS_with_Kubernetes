@@ -1,17 +1,17 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: project-app-deployment
+  name: project-step3-dep
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: project-app
+      app: project-step3
   template:
     metadata:
       labels:
-        app: project-app
+        app: project-step3
     spec:
       containers:
-        - name: project-app-container
-          image: carlossss1011/project-app:1.02
+        - name: project-step3-cont
+          image: carlossss1011/project-step3
