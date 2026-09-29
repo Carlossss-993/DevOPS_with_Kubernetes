@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: log-output-3-dep
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: log-output-3
+  template:
+    metadata:
+      labels:
+        app: log-output-3
+    spec:
+      volumes:
+        - name: log-volume
+          emptyDir: {}
+      containers:
+        - name: log-output-3-1
+          image: carlossss1011/log-output-3-1
+          volumeMounts:
+            - name: log-volume
+              mountPath: /app/files
+        - name: log-output-3-2
+          image: carlossss1011/log-output-3-2
+          volumeMounts:
+            - name: log-volume
+              mountPath: /app/files
