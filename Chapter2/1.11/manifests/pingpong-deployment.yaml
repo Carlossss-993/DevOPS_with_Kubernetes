@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pingpong-dep
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: pingpong
+  template:
+    metadata:
+      labels:
+        app: pingpong
+    spec:
+      volumes:
+        - name: pingpong-logoutput-vol
+          persistentVolumeClaim:
+            claimName: pingpong-logoutput-pvc
+      containers:
+        - name: pingpong
+          image: carlossss1011/pingpong-4
+          ports:
+            - containerPort: 3000
+          volumeMounts:
+            - name: pingpong-logoutput-vol
+              mountPath: /app/files

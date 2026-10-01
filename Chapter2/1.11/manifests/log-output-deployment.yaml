@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: log-output-dep
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: log-output
+  template:
+    metadata:
+      labels:
+        app: log-output
+    spec:
+      volumes:
+        - name: pingpong-logoutput-vol
+          persistentVolumeClaim:
+            claimName: pingpong-logoutput-pvc
+      containers:
+        - name: log-output
+          image: carlossss1011/log-output-4
+          ports:
+            - containerPort: 3000
+          volumeMounts:
+            - name: pingpong-logoutput-vol
+              mountPath: /app/files
