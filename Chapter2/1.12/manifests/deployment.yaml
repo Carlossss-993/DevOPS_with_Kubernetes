@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: project-step6-dep
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: project-step6
+  template:
+    metadata:
+      labels:
+        app: project-step6
+    spec:
+      volumes:
+        - name: project-step6-vol
+          persistentVolumeClaim:
+            claimName: project-step6-pvc
+      containers:
+        - name: project-step6-cont
+          image: carlossss1011/project-step6
+          ports:
+            - containerPort: 3000
+          volumeMounts:
+            - name: project-step6-vol
+              mountPath: /app/files
