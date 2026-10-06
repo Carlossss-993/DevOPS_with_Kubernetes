@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: project-step7-dep
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: project-step7
+  template:
+    metadata:
+      labels:
+        app: project-step7
+    spec:
+      volumes:
+        - name: project-step7-vol
+          persistentVolumeClaim:
+            claimName: project-step7-pvc
+      containers:
+        - name: project-step7-cont
+          image: carlossss1011/project-step7
+          ports:
+            - containerPort: 3000
+          volumeMounts:
+            - name: project-step7-vol
+              mountPath: /app/files
