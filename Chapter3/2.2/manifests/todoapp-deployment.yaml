@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: todoapp-2-2-dep
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: todoapp-2-2
+  template:
+    metadata:
+      labels:
+        app: todoapp-2-2
+    spec:
+      volumes:
+        - name: todoapp-2-2-vol
+          persistentVolumeClaim:
+            claimName: todoapp-2-2-pvc
+      containers:
+        - name: todoapp-2-2-cont
+          image: carlossss1011/2_2_todoapp
+          ports:
+            - containerPort: 3000
+          volumeMounts:
+            - name: todoapp-2-2-vol
+              mountPath: /app/files

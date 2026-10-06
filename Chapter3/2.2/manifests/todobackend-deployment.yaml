@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: todobackend-2-2-dep
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: todobackend-2-2
+  template:
+    metadata:
+      labels:
+        app: todobackend-2-2
+    spec:
+      containers:
+        - name: todobackend-2-2-cont
+          image: carlossss1011/2_2_todobackend
+          ports:
+            - containerPort: 3000
