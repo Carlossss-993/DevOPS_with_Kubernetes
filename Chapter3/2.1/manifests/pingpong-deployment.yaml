@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pingpong-2-1-dep
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: pingpong-2-1
+  template:
+    metadata:
+      labels:
+        app: pingpong-2-1
+    spec:
+      containers:
+        - name: pingpong-2-1
+          image: carlossss1011/2_1_pingpong
+          ports:
+            - containerPort: 3000

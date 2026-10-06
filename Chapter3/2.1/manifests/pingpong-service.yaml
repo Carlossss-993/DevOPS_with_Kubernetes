@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: pingpong-2-1-svc
+spec:
+  selector:
+    app: pingpong-2-1
+  ports:
+    - protocol: TCP
+      port: 2010
+      targetPort: 3000
