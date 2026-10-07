@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pingpong-2-3-dep
+  namespace: exercises
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: pingpong-2-3
+  template:
+    metadata:
+      labels:
+        app: pingpong-2-3
+    spec:
+      containers:
+        - name: pingpong-2-3
+          image: carlossss1011/2_3_pingpong
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 3000
