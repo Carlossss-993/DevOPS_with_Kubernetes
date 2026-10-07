@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: todobackend-2-4-svc
+  namespace: project
+spec:
+  type: ClusterIP
+  selector:
+    app: todobackend-2-4
+  ports:
+    - protocol: TCP
+      port: 2010
+      targetPort: 3000

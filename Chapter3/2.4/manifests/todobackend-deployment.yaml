@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: todobackend-2-4-dep
+  namespace: project
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: todobackend-2-4
+  template:
+    metadata:
+      labels:
+        app: todobackend-2-4
+    spec:
+      containers:
+        - name: todobackend-2-4-cont
+          image: carlossss1011/2_4_todobackend
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 3000
