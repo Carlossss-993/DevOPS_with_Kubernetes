@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: todobackend-2-6-configmap
+  namespace: project
+data:
+  PORT: "3000"
+  TODOS: '["Learn Kubernetes basics", "Deploy applications to cluster", "Configure persistent volumes"]'

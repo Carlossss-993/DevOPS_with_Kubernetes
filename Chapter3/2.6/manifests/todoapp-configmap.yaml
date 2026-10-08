@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: todoapp-2-6-configmap
+  namespace: project
+data:
+  PORT: "3000"
+  IMAGE_URL: "https://picsum.photos/1200"
+  TODO_BACKEND_URL: "http://todobackend-2-6-svc:2010/todos"
+  DIRECTORY_PATH: "/app/files"
