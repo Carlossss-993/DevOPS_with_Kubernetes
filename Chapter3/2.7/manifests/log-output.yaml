@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: logoutput-2-7-dep
+  namespace: exercises
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: logoutput-2-7
+  template:
+    metadata:
+      labels:
+        app: logoutput-2-7
+    spec:
+      volumes:
+        - name: log-output-config-vol
+          configMap:
+            name: log-output-config
+      containers:
+        - name: logoutput-2-7
+          image: carlossss1011/2_7_logoutput
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 3000
+          env:
+            - name: MESSAGE
+              valueFrom:
+                configMapKeyRef:
+                  name: log-output-config
+                  key: MESSAGE
+          volumeMounts:
+            - name: log-output-config-vol
+              mountPath: /app/config
+              readOnly: true
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: logoutput-2-7-svc
+  namespace: exercises
+spec:
+  selector:
+    app: logoutput-2-7
+  ports:
+    - protocol: TCP
+      port: 2010
+      targetPort: 3000
