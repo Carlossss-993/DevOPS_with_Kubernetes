@@ -1,0 +1,57 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: todobackend-2-8-svc
+  namespace: project
+spec:
+  type: ClusterIP
+  selector:
+    app: todobackend-2-8
+  ports:
+    - protocol: TCP
+      port: 2010
+      targetPort: 3000
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: todobackend-2-8-configmap
+  namespace: project
+data:
+  PORT: "3000"
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: todobackend-2-8-dep
+  namespace: project
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: todobackend-2-8
+  template:
+    metadata:
+      labels:
+        app: todobackend-2-8
+    spec:
+      containers:
+        - name: todobackend-2-8-cont
+          image: carlossss1011/2_8_todobackend
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 3000
+          resources:
+            requests:
+              memory: "128Mi"
+              cpu: "100m"
+            limits:
+              memory: "256Mi"
+              cpu: "250m"
+          envFrom:
+            - configMapRef:
+                name: todobackend-2-8-configmap
+            - configMapRef:
+                name: postgres-config
+            - secretRef:
+                name: postgres-secret
