@@ -1,0 +1,24 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: todo-2-10-cronjob
+  namespace: project
+spec:
+  schedule: "0 * * * *"
+  concurrencyPolicy: Forbid
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+            - name: todo-2-10-generate
+              image: curlimages/curl:latest
+              command: ["/bin/sh", "-c"]
+              args:
+                - |
+                  WIKI_URL=$(curl -Ls -A "Mozilla/5.0 (Windows NT 10.0; Win64; x64)" -o /dev/null -w "%{url_effective}" https://en.wikipedia.org/wiki/Special:Random)
+                  echo "Random Wikipedia URL: $WIKI_URL"
+                  curl -X POST http://todobackend-2-10-svc:2010/todos \
+                    -H "Content-Type: application/json" \
+                    -d "{\"task\": \"Read $WIKI_URL\"}"
+          restartPolicy: OnFailure
