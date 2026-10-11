@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: postgres-2-9-secret
+  namespace: project
+type: Opaque
+stringData:
+  POSTGRES_PASSWORD: "projectpass"
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: postgres-2-9-config
+  namespace: project
+data:
+  POSTGRES_DB: "project_db"
+  POSTGRES_USER: "project_user"
+  POSTGRES_HOST: "postgres-2-9-svc"
+  POSTGRES_PORT: "5432"
