@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: logoutput-conf
+  namespace: exercises
+data:
+  MESSAGE: "Hello from the ConfigMap!"
+  information.txt: "This is a sample text file stored in the ConfigMap."
+  PINGPONG_SERVICE_URL: "http://pingpong-svc:2010/pings"
