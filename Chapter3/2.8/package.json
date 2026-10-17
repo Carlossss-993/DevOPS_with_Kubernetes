@@ -1,0 +1,5 @@
+{
+  "scripts": {
+    "try": "cd todo-app && docker build -t carlossss1011/2_8_todoapp . && docker push carlossss1011/2_8_todoapp && cd ../todo-backend && docker build -t carlossss1011/2_8_todobackend . && docker push carlossss1011/2_8_todobackend && cd .. && kubectl delete ns exercises project --ignore-not-found && kubectl create namespace exercises && kubectl create namespace project && kubectl apply -f manifests"
+  }
+}
