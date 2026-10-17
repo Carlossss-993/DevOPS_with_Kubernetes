@@ -52,8 +52,8 @@ jobs:
 
       - name: Build Docker images
         run: |
-          docker build --tag $TODOAPP_IMAGE ./todo-app
-          docker build --tag $TODOBACKEND_IMAGE ./todo-backend
+          docker build --tag $TODOAPP_IMAGE ./Chapter4/3.6/todo-app
+          docker build --tag $TODOBACKEND_IMAGE ./Chapter4/3.6/todo-backend
 
       - name: Publish Docker images
         run: |
@@ -65,6 +65,7 @@ jobs:
 
       - name: Deploy to GKE
         run: |
+          cd Chapter4/3.6
           kustomize edit set image PROJECT/IMAGE/TODOAPP=$TODOAPP_IMAGE
           kustomize edit set image PROJECT/IMAGE/TODOBACKEND=$TODOBACKEND_IMAGE
           kustomize build . | kubectl apply -f -
