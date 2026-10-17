@@ -1,0 +1,63 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: todoapp-svc
+  namespace: project
+spec:
+  type: ClusterIP
+  selector:
+    app: todoapp
+  ports:
+    - protocol: TCP
+      port: 2010
+      targetPort: 3000
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: todoapp-conf
+  namespace: project
+data:
+  PORT: "3000"
+  IMAGE_URL: "https://picsum.photos/1200"
+  TODO_BACKEND_URL: "http://todobackend-svc:2010/todos"
+  DIRECTORY_PATH: "/app/files"
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: todoapp-dep
+  namespace: project
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: todoapp
+  template:
+    metadata:
+      labels:
+        app: todoapp
+    spec:
+      volumes:
+        - name: todoapp-vol
+          persistentVolumeClaim:
+            claimName: todoapp-pvc
+      containers:
+        - name: todoapp-cont
+          image: PROJECT/IMAGE/TODOAPP
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 3000
+          resources:
+            requests:
+              memory: "128Mi"
+              cpu: "100m"
+            limits:
+              memory: "256Mi"
+              cpu: "250m"
+          envFrom:
+            - configMapRef:
+                name: todoapp-conf
+          volumeMounts:
+            - name: todoapp-vol
+              mountPath: /app/files
