@@ -47,6 +47,7 @@ const initDb = async (retries = 10, delay = 3000) => {
     }
   }
   console.error('No se pudo conectar a la base de datos tras múltiples intentos.');
+  process.exit(1); 
 };
 
 const getTodos = async () => {
@@ -68,6 +69,11 @@ const addTodo = async (task) => {
 };
 
 const server = http.createServer(async (req, res) => {
+  if (req.url === '/') {
+    res.writeHead(200, { 'Content-Type': 'text/plain' });
+    return res.end('Todo backend server is running');
+  }
+  
   if (req.url === '/todos' && req.method === 'GET') {
     res.writeHead(200, { 'Content-Type': 'application/json' });
     const todos = await getTodos();

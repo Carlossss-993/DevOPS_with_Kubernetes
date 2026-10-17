@@ -18,7 +18,6 @@ metadata:
   name: todoapp-pvc
   namespace: project
 spec:
-  storageClassName: ""
   accessModes:
     - ReadWriteOnce
   resources:
