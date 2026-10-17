@@ -13,7 +13,7 @@ env:
   PROJECT_ID: ${{ secrets.GKE_PROJECT }}
   GKE_CLUSTER: dwk-cluster
   GKE_ZONE: us-central1-a
-  REGISTRY: europe-north1-docker.pkg.dev
+  REGISTRY: us-central1-docker.pkg.dev
   REPOSITORY: dwk-repo
   BRANCH: ${{ github.ref_name }}
 
